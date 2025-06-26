@@ -1333,6 +1333,25 @@ align-items: center;
 
 @media (max-width: 768px) {
   .testimonial__img1 {
-    max-width: 90%;
+    max-width: 100%;
+  }
+}
+
+.section__subtitle1 {
+  display: block;
+  font-size: 1rem;
+  margin: 1rem auto 2rem auto;
+  max-width: 800px;
+  text-align: center;
+  color: #444;
+  line-height: 1.6;
+  padding: 0 1rem;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .section__subtitle1 {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
   }
 }

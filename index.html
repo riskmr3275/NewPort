@@ -601,21 +601,62 @@
             </div>
         </section>
 <!--=============== TESTIMONIALS ===============-->
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 <section class="testimonial section">
-    <h2 class="section__title">Certification</h2>
-  
-    <p class="section__subtitle1">
-      Led and presented a <strong>Training and Placement Management System</strong> at 
-      <em>Technosearch</em> – the annual tech fest of NIT Bhopal. The project was selected as 
-      the <strong>department winner</strong> and received a cash prize and certification.
-    </p>
-  
-    <div class="testimonial__container1 container swiper">
-      <div class="testimonial__card1 swiper-slide">
-        <img src="assets/img/certificate.jpeg" alt="Certificate" class="testimonial__img1" />
+  <h2 class="section__title text-center text-xl md:text-2xl font-bold mb-4">Certification</h2>
+
+  <div class="swiper testimonial__container1 container max-w-xl mx-auto px-4">
+    <div class="swiper-wrapper">
+
+      <!-- Slide 1 -->
+      <div class="testimonial__card1 swiper-slide text-center">
+        <img src="assets/img/certificate.jpeg" alt="Certificate 1" class="testimonial__img1 w-full rounded-lg shadow-md" />
+        <p class="section__subtitle1 mt-4 text-sm sm:text-base">
+          Presented <strong>Training and Placement Management System</strong> at <em>Technosearch, NIT Bhopal</em>. 
+          Selected as <strong>Department Winner</strong> with a cash prize and certificate.
+        </p>
       </div>
+
+      <!-- Slide 2 -->
+      <div class="testimonial__card1 swiper-slide text-center">
+        <img src="assets/img/Certificate.jpg" alt="Certificate 2" class="testimonial__img1 w-full rounded-lg shadow-md" />
+        <p class="section__subtitle1 mt-4 text-sm sm:text-base">
+          Successfully completed the AWS Cloud Assessment conducted by <b><em>LearnTube.ai</em>.</b> The assessment evaluated core cloud computing concepts including:
+          
+           <strong>AWS Infrastructure & Services, Cloud Deployment Models, and IAM, EC2, S3, and Cloud Security</strong>.
+        </p>
+      </div>
+
     </div>
-  </section>
+
+    <!-- Pagination Dots (optional) -->
+    <div class="swiper-pagination mt-2"></div>
+  </div>
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Swiper Init Script -->
+<script>
+  const swiper = new Swiper(".testimonial__container1", {
+    loop: true,
+  
+    slidesPerView: 1, // always 1 image at a time
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+</script>
+
   
           
 

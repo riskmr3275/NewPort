@@ -224,6 +224,7 @@ body.light-theme {
 }
 
 .section__subtitle {
+  margin-top: 20px;
   display: block;
   font-size: var(--smaller-font-size);
   color: var(--text-color-light);
@@ -2649,7 +2650,7 @@ align-items: center;
 ======== EDUCATION SECTION ===============*/
 .education__container {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr;
   gap: 3rem;
   align-items: start;
 }

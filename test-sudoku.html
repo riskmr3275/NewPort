@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Test</title>
+    <style>
+        .sudoku__board {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 1px;
+            background-color: #333;
+            border: 2px solid #333;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            max-width: 450px;
+            margin: 0 auto 2rem;
+            min-height: 450px;
+        }
+        
+        .sudoku__cell {
+            aspect-ratio: 1;
+            background-color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .sudoku__cell.selected {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .sudoku__cell.given {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
+        
+        .number-btn {
+            padding: 10px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sudoku Test</h1>
+    <div class="sudoku__board" id="sudoku-board"></div>
+    
+    <div class="sudoku__numbers">
+        <button class="number-btn" data-number="1">1</button>
+        <button class="number-btn" data-number="2">2</button>
+        <button class="number-btn" data-number="3">3</button>
+        <button class="number-btn" data-number="4">4</button>
+        <button class="number-btn" data-number="5">5</button>
+        <button class="number-btn" data-number="6">6</button>
+        <button class="number-btn" data-number="7">7</button>
+        <button class="number-btn" data-number="8">8</button>
+        <button class="number-btn" data-number="9">9</button>
+        <button class="number-btn" data-number="0">Erase</button>
+    </div>
+    
+    <div id="sudoku-status">Select a cell and choose a number!</div>
+    
+    <script>
+        let sudokuGrid = [];
+        let selectedCell = null;
+        
+        const puzzle = [
+            [5,3,0,0,7,0,0,0,0],
+            [6,0,0,1,9,5,0,0,0],
+            [0,9,8,0,0,0,0,6,0],
+            [8,0,0,0,6,0,0,0,3],
+            [4,0,0,8,0,3,0,0,1],
+            [7,0,0,0,2,0,0,0,6],
+            [0,6,0,0,0,0,2,8,0],
+            [0,0,0,4,1,9,0,0,5],
+            [0,0,0,0,8,0,0,7,9]
+        ];
+        
+        function createBoard() {
+            const board = document.getElementById('sudoku-board');
+            board.innerHTML = '';
+            
+            for (let i = 0; i < 81; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('sudoku__cell');
+                cell.setAttribute('data-index', i);
+                cell.addEventListener('click', () => selectCell(cell, i));
+                board.appendChild(cell);
+            }
+        }
+        
+        function displayGrid() {
+            sudokuGrid = puzzle.map(row => [...row]);
+            const cells = document.querySelectorAll('.sudoku__cell');
+            
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const value = sudokuGrid[row][col];
+                
+                cell.textContent = value === 0 ? '' : value;
+                cell.classList.remove('given', 'selected');
+                
+                if (value !== 0) {
+                    cell.classList.add('given');
+                }
+            });
+        }
+        
+        function selectCell(cell, index) {
+            document.querySelectorAll('.sudoku__cell').forEach(c => c.classList.remove('selected'));
+            
+            if (cell.classList.contains('given')) return;
+            
+            cell.classList.add('selected');
+            selectedCell = index;
+            document.getElementById('sudoku-status').textContent = 'Cell selected! Choose a number.';
+        }
+        
+        function placeNumber(num) {
+            if (selectedCell === null) {
+                document.getElementById('sudoku-status').textContent = 'Please select a cell first!';
+                return;
+            }
+            
+            const cell = document.querySelector(`[data-index="${selectedCell}"]`);
+            if (cell.classList.contains('given')) return;
+            
+            const row = Math.floor(selectedCell / 9);
+            const col = selectedCell % 9;
+            
+            if (num === 0) {
+                sudokuGrid[row][col] = 0;
+                cell.textContent = '';
+                document.getElementById('sudoku-status').textContent = 'Number erased!';
+                return;
+            }
+            
+            sudokuGrid[row][col] = num;
+            cell.textContent = num;
+            document.getElementById('sudoku-status').textContent = 'Number placed!';
+        }
+        
+        // Initialize
+        createBoard();
+        displayGrid();
+        
+        // Add event listeners to number buttons
+        document.querySelectorAll('.number-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const num = parseInt(button.getAttribute('data-number'));
+                placeNumber(num);
+            });
+        });
+    </script>
+</body>
+</html>
